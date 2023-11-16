@@ -20,8 +20,10 @@ class Client:
       newshares = []
       share1 = random.randint(1, 1000)
       share2 = random.randint(1, 1000)
-      #share3 = self.secret - (share1 + share2)
-      share3 = self.secret + 1000 - ((share1 + share2) % 1000)
+      share3 = self.secret - (share1 + share2)
+      
+      #share3 = (self.secret + 1000 - share1 - share2) % 1000
+      #share3 = self.secret + 1000 - ((share1 + share2) % 1000)
       
       newshares.append(share1)
       newshares.append(share2)
@@ -84,8 +86,10 @@ class Client:
         self.shares.append(share)
         client_socket.close()
 
-      aggregation = sum(self.shares)%1000
-      #aggregation = sum(self.shares)
+      #aggregation = sum(self.shares)%1000
+      aggregation = sum(self.shares)
+      print(f"The aggregated values are {aggregation}")
+      
       
       client_socket = self.connect(8000)
       aggregation_value = struct.pack("!i", aggregation)
